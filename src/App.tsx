@@ -1,7 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
+import Home from "./pages/Home";
+import GlobalStyle from "./styles/global";
 
-function App() {
-  return <div className="App">Aqui tentarei criar algo com React</div>;
-}
+const App: React.FC = () => {
+  useEffect(() => {}, []);
+
+  return (
+    <div className="App">
+      <Home />
+      <GlobalStyle />
+    </div>
+  );
+};
 
 export default App;
