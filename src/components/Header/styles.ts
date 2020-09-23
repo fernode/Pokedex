@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Div = styled.div`
   display: flex;
@@ -10,5 +10,9 @@ export const Div = styled.div`
     width: 3rem;
     height: 3rem;
     cursor: pointer;
+  }
+
+  h3 {
+    font-size: 2rem;
   }
 `;

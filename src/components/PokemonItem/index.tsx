@@ -7,13 +7,13 @@ interface Data {
     name: String;
     url: String;
   };
-  index: Number;
 }
 
-const PokemonItem: React.FC<Data> = ({ pokemonData, index }) => {
-  console.log(pokemonData.name);
+const PokemonItem: React.FC<Data> = ({ pokemonData }) => {
+  const getPokemonId = pokemonData.url.slice(34).replace('/', '');
+
   const { data, loading, error } = usePalette(
-    `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${index}.png`
+    `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${getPokemonId}.png`
   );
 
   return (
@@ -23,7 +23,7 @@ const PokemonItem: React.FC<Data> = ({ pokemonData, index }) => {
       }}
     >
       <img
-        src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${index}.png`}
+        src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${getPokemonId}.png`}
         alt=""
       />
       <h2>{pokemonData.name}</h2>

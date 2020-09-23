@@ -9,3 +9,14 @@ export const ContainerItem = styled.div`
   grid-template-columns: auto auto;
   grid-gap: 1rem;
 `;
+
+export const Arrows = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2rem;
+
+  svg {
+    width: 3rem;
+    height: 3rem;
+  }
+`;

@@ -1,11 +1,11 @@
-import React from "react";
-import { BiMenuAltRight, BiArrowBack } from "react-icons/bi";
-import { Div } from "./styles";
+import React from 'react';
+import { BiMenuAltRight } from 'react-icons/bi';
+import { Div } from './styles';
 
 export default function index() {
   return (
     <Div>
-      <BiArrowBack />
+      <h3>PokeInfo</h3>
       <BiMenuAltRight />
     </Div>
   );
