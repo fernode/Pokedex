@@ -5,17 +5,30 @@ import PokemonItem from '../../components/PokemonItem';
 import { H1, ContainerItem } from './styles';
 
 const Home: React.FC = () => {
-  useEffect(() => {}, []);
+  const [pokemonData, setPokemonData] = useState([]);
+  const [results, setResults] = useState([]);
+  useEffect(() => {
+    try {
+      api
+        .get('/pokemon')
+        .then(response => response.data)
+        .then(pokemon => {
+          setPokemonData(pokemon);
+          setResults(pokemon.results);
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
 
   return (
     <div className="container">
       <Header />
       <H1>Pokedex</H1>
       <ContainerItem>
-        <PokemonItem />
-        <PokemonItem />
-        <PokemonItem />
-        <PokemonItem />
+        {results.map((pokemon, index) => (
+          <PokemonItem key={index} pokemonData={pokemon} index={index + 1} />
+        ))}
       </ContainerItem>
     </div>
   );

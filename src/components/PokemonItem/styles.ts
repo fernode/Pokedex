@@ -13,5 +13,6 @@ export const Pokemon = styled.div`
     margin-bottom: 2rem;
     color: #ffffff;
     font-size: 1.8rem;
+    text-transform: capitalize;
   }
 `;

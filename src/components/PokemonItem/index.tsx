@@ -2,9 +2,18 @@ import React from 'react';
 import { usePalette } from 'react-palette';
 import { Pokemon } from './styles';
 
-const PokemonItem: React.FC = () => {
+interface Data {
+  pokemonData: {
+    name: String;
+    url: String;
+  };
+  index: Number;
+}
+
+const PokemonItem: React.FC<Data> = ({ pokemonData, index }) => {
+  console.log(pokemonData.name);
   const { data, loading, error } = usePalette(
-    'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/3.png'
+    `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${index}.png`
   );
 
   return (
@@ -14,10 +23,10 @@ const PokemonItem: React.FC = () => {
       }}
     >
       <img
-        src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/3.png"
+        src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${index}.png`}
         alt=""
       />
-      <h2>Bulbasaur</h2>
+      <h2>{pokemonData.name}</h2>
     </Pokemon>
   );
 };
