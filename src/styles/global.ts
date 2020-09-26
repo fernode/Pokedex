@@ -1,4 +1,4 @@
-import { createGlobalStyle } from "styled-components";
+import { createGlobalStyle } from 'styled-components';
 
 export default createGlobalStyle`
 * {
@@ -28,5 +28,9 @@ body{
 .container{
   max-width: 90%;
   margin: auto;
+
+  @media(min-width: 1366px){
+    max-width: 1300px;
+  }
 }
 `;

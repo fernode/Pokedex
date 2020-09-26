@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { BiCaretLeft, BiCaretRight } from 'react-icons/bi';
 
 import Header from '../../components/Header';
+
 import api from '../../services/api';
 import PokemonItem from '../../components/PokemonItem';
 import { H1, ContainerItem, Arrows } from './styles';
@@ -73,7 +74,6 @@ const Home: React.FC = () => {
           <PokemonItem key={index} pokemonData={pokemon} />
         ))}
       </ContainerItem>
-
       <Arrows>
         <BiCaretLeft onClick={paginationBefore} />
         <BiCaretRight onClick={paginationNext} />

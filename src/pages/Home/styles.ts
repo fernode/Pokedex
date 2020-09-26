@@ -8,6 +8,10 @@ export const ContainerItem = styled.div`
   display: grid;
   grid-template-columns: auto auto;
   grid-gap: 1rem;
+
+  @media (min-width: 1366px) {
+    grid-template-columns: auto auto auto auto;
+  }
 `;
 
 export const Arrows = styled.div`

@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
-import Home from "./pages/Home";
-import GlobalStyle from "./styles/global";
+import React, { useEffect } from 'react';
+import Home from './pages/Home';
+import GlobalStyle from './styles/global';
 
 const App: React.FC = () => {
   useEffect(() => {}, []);
