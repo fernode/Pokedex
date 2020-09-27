@@ -18,15 +18,23 @@ const PokemonItem: React.FC<Data> = ({ pokemonData }) => {
     `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${getPokemonId}.png`
   );
 
-  function openModal(): any {
-    showModal === true ? setShowModal(false) : setShowModal(true);
-    return showModal;
+  function openModal(open: boolean) {
+    const { body } = document;
+
+    if (open === true) {
+      body.style.overflowY = 'hidden';
+      window.scrollTo(0, 0);
+    } else {
+      body.style.overflowY = 'auto';
+    }
+
+    return setShowModal(open);
   }
 
   return (
     <>
       <Pokemon
-        onClick={openModal}
+        onClick={() => openModal(true)}
         style={{
           background: `linear-gradient(146deg, ${data.muted} 0%, ${data.vibrant} 100%)`,
         }}
@@ -37,11 +45,13 @@ const PokemonItem: React.FC<Data> = ({ pokemonData }) => {
         />
         <h2>{pokemonData.name}</h2>
       </Pokemon>
-      <ModalPokemonInfo
-        modalId={getPokemonId}
-        showModal={() => openModal()}
-        showModalState={showModal}
-      />
+      {showModal && (
+        <ModalPokemonInfo
+          modalId={getPokemonId}
+          showModal={() => openModal(false)}
+          showModalState={showModal}
+        />
+      )}
     </>
   );
 };

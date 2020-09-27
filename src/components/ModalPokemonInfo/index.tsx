@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Progress } from 'react-sweet-progress';
 import 'react-sweet-progress/lib/style.css';
 
 import { BiArrowBack } from 'react-icons/bi';
 import { usePalette } from 'react-palette';
+import api from '../../services/api';
 import { Div, PokemonInfos, TypePokemonList } from './styles';
 
 interface Props {
@@ -12,14 +13,99 @@ interface Props {
   showModalState: Boolean;
 }
 
+interface States {
+  id: number;
+  weight: number;
+  name: string;
+  height: number;
+  length: number;
+  abilities: [
+    {
+      ability: {
+        name: String;
+      };
+    }
+  ];
+  species: {
+    name: String;
+  };
+  stats: [
+    {
+      // eslint-disable-next-line camelcase
+      base_stat: number;
+      stat: {
+        name: String;
+      };
+    }
+  ];
+  types: [
+    {
+      slot: number;
+      type: {
+        name: String;
+      };
+    }
+  ];
+}
+
 const ModalPokemonInfo: React.FC<Props> = ({
   modalId,
   showModal,
   showModalState,
 }) => {
+  const [pokemonData, setPokemonData] = useState<States>({
+    id: 0,
+    weight: 0,
+    height: 0,
+    name: '',
+    length: 0,
+    abilities: [
+      {
+        ability: {
+          name: '',
+        },
+      },
+    ],
+    species: {
+      name: '',
+    },
+    stats: [
+      {
+        base_stat: 0,
+        stat: {
+          name: '',
+        },
+      },
+    ],
+    types: [
+      {
+        slot: 0,
+        type: {
+          name: '',
+        },
+      },
+    ],
+  });
   const { data } = usePalette(
-    `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png`
+    `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${modalId}.png`
   );
+
+  useEffect(() => {
+    if (pokemonData.length === 0) {
+      try {
+        api
+          .get(`/pokemon/${modalId}`)
+          .then(response => response.data)
+          .then(response => {
+            setPokemonData(response);
+          });
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    console.log(pokemonData.abilities[0].ability);
+  }, [pokemonData]);
 
   return (
     <Div
@@ -27,24 +113,26 @@ const ModalPokemonInfo: React.FC<Props> = ({
       style={{
         background: `linear-gradient(146deg, ${data.muted} 0%, ${data.vibrant} 100%)`,
         display: showModalState === true ? `block` : 'none',
+        overflowY: 'auto',
       }}
     >
       <div className="container">
-        <div className="return" onClick={showModal}>
+        <div className="return" onClick={() => showModal(false)}>
           <BiArrowBack />
         </div>
 
         <div className="text-box">
           <div className="text-box__01">
-            <h3>Bulbasaur</h3>
+            <h3>{pokemonData.name}</h3>
             <TypePokemonList background={data.vibrant || 'transparent'}>
-              <li>Gras</li>
-              <li>Poison</li>
+              {pokemonData.types.map(item => (
+                <li>{item.type.name}</li>
+              ))}
             </TypePokemonList>
           </div>
 
           <div className="text-box__02">
-            <span>#001</span>
+            <span>#{pokemonData.id}</span>
           </div>
         </div>
       </div>
@@ -52,7 +140,7 @@ const ModalPokemonInfo: React.FC<Props> = ({
       <PokemonInfos>
         <img
           className="pokemon-img"
-          src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png"
+          src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${modalId}.png`}
           alt=""
         />
 
@@ -61,17 +149,20 @@ const ModalPokemonInfo: React.FC<Props> = ({
             <h4>About</h4>
             <ul>
               <li>
-                <span> Species </span> <b>Bulbasaur</b>
+                <span> Species </span> <b>{pokemonData.species.name}</b>
               </li>
               <li>
-                <span> Height</span> <b>70cm</b>
+                <span> Height</span> <b>{pokemonData.height}</b>
               </li>
               <li>
                 <span> Weight</span>
-                <b>70cm</b>
+                <b>{pokemonData.weight}</b>
               </li>
               <li>
-                <span>Abilities</span> <b>overgrow</b>
+                <span>Abilities</span>{' '}
+                <b>
+                  {pokemonData.abilities.map(item => `${item.ability.name}, `)}
+                </b>
               </li>
             </ul>
           </div>
@@ -79,84 +170,21 @@ const ModalPokemonInfo: React.FC<Props> = ({
           <div className="stats">
             <h4>Stats</h4>
             <ul>
-              <li>
-                <span>HP</span>
-                <Progress
-                  percent={10}
-                  status="success"
-                  theme={{
-                    success: {
-                      symbol: ' ',
-                      color: 'rgb(223, 105, 180)',
-                    },
-                  }}
-                />
-              </li>
-              <li>
-                <span>Attack</span>
-                <Progress
-                  percent={88}
-                  status="success"
-                  theme={{
-                    success: {
-                      symbol: ' ',
-                      color: 'rgb(223, 105, 180)',
-                    },
-                  }}
-                />
-              </li>
-              <li>
-                <span>Defence</span>
-                <Progress
-                  percent={88}
-                  status="success"
-                  theme={{
-                    success: {
-                      symbol: ' ',
-                      color: 'rgb(223, 105, 180)',
-                    },
-                  }}
-                />
-              </li>
-              <li>
-                <span>Speed</span>
-                <Progress
-                  percent={88}
-                  status="success"
-                  theme={{
-                    success: {
-                      symbol: ' ',
-                      color: 'rgb(223, 105, 180)',
-                    },
-                  }}
-                />
-              </li>
-              <li>
-                <span>Sp Atk</span>
-                <Progress
-                  percent={88}
-                  status="success"
-                  theme={{
-                    success: {
-                      symbol: ' ',
-                      color: 'rgb(223, 105, 180)',
-                    },
-                  }}
-                />
-              </li>
-              <li>
-                <span>Sp Def</span>
-                <Progress
-                  percent={88}
-                  status="success"
-                  theme={{
-                    success: {
-                      symbol: ' ',
-                      color: 'rgb(223, 105, 180)',
-                    },
-                  }}
-                />
-              </li>
+              {pokemonData.stats.map(item => (
+                <li>
+                  <span>{item.stat.name}</span>
+                  <Progress
+                    percent={item.base_stat}
+                    status="success"
+                    theme={{
+                      success: {
+                        symbol: ' ',
+                        color: 'rgb(223, 105, 180)',
+                      },
+                    }}
+                  />
+                </li>
+              ))}
             </ul>
           </div>
         </div>

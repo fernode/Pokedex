@@ -37,6 +37,7 @@ export const Div = styled.div`
       h3 {
         font-size: 3rem;
         color: #ffffff;
+        text-transform: uppercase;
       }
     }
 
@@ -76,7 +77,7 @@ export const PokemonInfos = styled.div`
   border-radius: 30px 30px 0 0;
   width: 100%;
   height: 100vh;
-  margin-top: 10rem;
+  margin-top: 14rem;
 
   .pokemon-img {
     width: 30rem;
@@ -110,6 +111,7 @@ export const PokemonInfos = styled.div`
         align-items: center;
 
         b {
+          text-transform: capitalize;
           margin-left: -5rem;
           font-weight: 300;
         }
@@ -124,6 +126,7 @@ export const PokemonInfos = styled.div`
         align-items: center;
         justify-content: space-between;
         margin-top: 1rem;
+        text-transform: capitalize;
       }
     }
   }
