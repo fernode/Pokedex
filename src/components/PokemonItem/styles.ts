@@ -5,6 +5,7 @@ export const Pokemon = styled.div`
   align-items: center;
   flex-direction: column;
   border-radius: 2rem;
+  cursor: pointer;
   img {
     height: 13rem;
   }

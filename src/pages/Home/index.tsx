@@ -12,7 +12,12 @@ const Home: React.FC = () => {
     next: '',
     previous: '',
   });
-  const [results, setResults] = useState([]);
+  const [results, setResults] = useState([
+    {
+      name: '',
+      url: '',
+    },
+  ]);
 
   useEffect(() => {
     try {
@@ -29,7 +34,7 @@ const Home: React.FC = () => {
     }
   }, []);
 
-  function paginationNext() {
+  function paginationNext(): void {
     if (pokemonData.next !== '' && pokemonData.next != null) {
       const next = pokemonData.next.slice(33);
 
@@ -47,7 +52,7 @@ const Home: React.FC = () => {
     }
   }
 
-  function paginationBefore() {
+  function paginationBefore(): void {
     if (pokemonData.previous !== '' && pokemonData.previous != null) {
       const previous = pokemonData.previous.slice(33);
 
@@ -70,8 +75,8 @@ const Home: React.FC = () => {
       <Header />
       <H1>Pokedex</H1>
       <ContainerItem>
-        {results.map((pokemon, index) => (
-          <PokemonItem key={index} pokemonData={pokemon} />
+        {results.map(pokemon => (
+          <PokemonItem key={pokemon.name} pokemonData={pokemon} />
         ))}
       </ContainerItem>
       <Arrows>

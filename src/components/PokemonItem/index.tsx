@@ -18,7 +18,7 @@ const PokemonItem: React.FC<Data> = ({ pokemonData }) => {
     `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${getPokemonId}.png`
   );
 
-  function openModal(open: boolean) {
+  function openModal(open: boolean): void {
     const { body } = document;
 
     if (open === true) {
