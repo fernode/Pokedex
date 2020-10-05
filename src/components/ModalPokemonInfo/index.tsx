@@ -91,19 +91,17 @@ const ModalPokemonInfo: React.FC<Props> = ({
   );
 
   useEffect(() => {
-    if (pokemonData.length === 0) {
-      try {
-        api
-          .get(`/pokemon/${modalId}`)
-          .then(response => response.data)
-          .then(response => {
-            setPokemonData(response);
-          });
-      } catch (error) {
-        return error;
-      }
+    try {
+      api
+        .get(`/pokemon/${modalId}`)
+        .then(response => response.data)
+        .then(response => {
+          setPokemonData(response);
+        });
+    } catch (error) {
+      return error;
     }
-  }, [pokemonData]);
+  }, [modalId]);
 
   return (
     <Div
@@ -124,7 +122,7 @@ const ModalPokemonInfo: React.FC<Props> = ({
             <h3>{pokemonData.name}</h3>
             <TypePokemonList background={data.vibrant || 'transparent'}>
               {pokemonData.types.map(item => (
-                <li>{item.type.name}</li>
+                <li key={item.slot}>{item.type.name}</li>
               ))}
             </TypePokemonList>
           </div>

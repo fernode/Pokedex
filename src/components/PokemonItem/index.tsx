@@ -47,6 +47,7 @@ const PokemonItem: React.FC<Data> = ({ pokemonData }) => {
       </Pokemon>
       {showModal && (
         <ModalPokemonInfo
+          key={getPokemonId}
           modalId={getPokemonId}
           showModal={() => openModal(false)}
           showModalState={showModal}
