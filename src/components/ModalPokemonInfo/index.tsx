@@ -100,11 +100,9 @@ const ModalPokemonInfo: React.FC<Props> = ({
             setPokemonData(response);
           });
       } catch (error) {
-        console.log(error);
+        return error;
       }
     }
-
-    console.log(pokemonData.abilities[0].ability);
   }, [pokemonData]);
 
   return (

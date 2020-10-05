@@ -32,9 +32,8 @@ const Home: React.FC = () => {
           setPokemonData(pokemon);
           setResults(pokemon.results);
         });
-      console.log(pokemonData.next);
     } catch (error) {
-      console.log(error);
+      return error;
     }
   }, []);
 
@@ -51,7 +50,7 @@ const Home: React.FC = () => {
             setResults(pokemon.results);
           });
       } catch (error) {
-        console.log(error);
+        return error;
       }
     }
   }
@@ -69,14 +68,13 @@ const Home: React.FC = () => {
             setResults(pokemon.results);
           });
       } catch (error) {
-        console.log(error);
+        return error;
       }
     }
   }
 
   function getSelectedPokemon(name: any): void {
     const result = sujestions.results.filter(obj => obj.name === name);
-    console.log(name);
     setResults(result);
   }
 
