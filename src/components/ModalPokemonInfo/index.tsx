@@ -172,7 +172,9 @@ const ModalPokemonInfo: React.FC<Props> = ({
             <ul>
               {pokemonData.stats.map(item => (
                 <li>
-                  <span>{item.stat.name}</span>
+                  <span>
+                    {item.stat.name} <strong>{item.base_stat}</strong>
+                  </span>
                   <Progress
                     percent={item.base_stat}
                     status="success"

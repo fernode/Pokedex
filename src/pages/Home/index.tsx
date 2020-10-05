@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { BiCaretLeft, BiCaretRight } from 'react-icons/bi';
+import { Typeahead } from '@gforge/react-typeahead-ts';
 
+import sujestions from '../../data/sujestions.json';
 import Header from '../../components/Header';
 
 import api from '../../services/api';
 import PokemonItem from '../../components/PokemonItem';
-import { H1, ContainerItem, Arrows } from './styles';
+import { H1, ContainerItem, Arrows, SearchContainer } from './styles';
 
 const Home: React.FC = () => {
   const [pokemonData, setPokemonData] = useState({
@@ -18,6 +20,8 @@ const Home: React.FC = () => {
       url: '',
     },
   ]);
+
+  const pokemonNames = sujestions.results.map(({ name }) => name);
 
   useEffect(() => {
     try {
@@ -70,10 +74,32 @@ const Home: React.FC = () => {
     }
   }
 
+  function getSelectedPokemon(name: any): void {
+    const result = sujestions.results.filter(obj => obj.name === name);
+    console.log(name);
+    setResults(result);
+  }
+
   return (
     <div className="container">
       <Header />
       <H1>Pokedex</H1>
+      <SearchContainer>
+        <Typeahead
+          className="list"
+          options={pokemonNames}
+          maxVisible={5}
+          placeholder="Faça a busca e selecione o pokemon"
+          allowCustomValues
+          onOptionSelected={value => getSelectedPokemon(value)}
+          customClasses={{
+            results: 'list__group',
+            listItem: 'list__group-item',
+            hover: 'active',
+          }}
+        />
+      </SearchContainer>
+
       <ContainerItem>
         {results.map(pokemon => (
           <PokemonItem key={pokemon.name} pokemonData={pokemon} />

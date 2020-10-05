@@ -24,3 +24,30 @@ export const Arrows = styled.div`
     height: 3rem;
   }
 `;
+
+export const SearchContainer = styled.div`
+  .list {
+    margin: 1rem 0;
+    position: relative;
+    input {
+      width: 100%;
+      padding: 1rem;
+    }
+
+    &__group {
+      background: #ffffff;
+      position: absolute;
+      width: 100%;
+
+      &-item {
+        list-style: none;
+        font-size: 1.4rem;
+        padding: 0.3rem 0.7rem;
+        &:hover {
+          background: #29b6f6;
+          color: #ffffff;
+        }
+      }
+    }
+  }
+`;

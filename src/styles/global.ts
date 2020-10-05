@@ -33,4 +33,8 @@ body{
     max-width: 1300px;
   }
 }
+
+.react-sweet-progress-line-inner{
+  max-width: 100% !important;
+}
 `;
